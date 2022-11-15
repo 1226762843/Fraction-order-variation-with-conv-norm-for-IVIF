@@ -1,0 +1,16 @@
+function img_covar = cov_window(img1,img2,block_size)
+img1 = double(img1);
+img2 = double(img2);
+img12 = double(img1.*img2);
+filter_K = ones(block_size);
+N = block_size.^2;
+me1 = 1./N.*filter2(filter_K, img1, 'valid');
+me2 = 1./N.*filter2(filter_K, img2, 'valid');
+me12 = 1./N.*filter2(filter_K, img12, 'valid');
+% s1 = 1./N.*filter2(filter_K, img1.*img1, 'valid');
+% s2 = 1./N.*filter2(filter_K, img2.*img2, 'valid');
+% st1 = sqrt(s1 - me1.^2);
+% st2 = sqrt(s2 - me2.^2);
+% S = st1.*st2;
+img_covar = me12 -me1.*me2;
+img_covar(img_covar<0)=0;

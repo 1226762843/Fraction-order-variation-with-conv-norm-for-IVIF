@@ -1,0 +1,10 @@
+function Qe = Qe_index(img1,img2,imgf,block_size)
+Qw = Qw_index(img1,img2,imgf,block_size);
+[fx,fy] = gradient(img1);
+gd1 = sqrt(fx.^2 + fy.^2);
+[fx,fy] = gradient(img2);
+gd2 = sqrt(fx.^2 + fy.^2);
+[fx,fy] = gradient(imgf);
+gdf = sqrt(fx.^2 + fy.^2);
+Qw1 = Qw_index(gd1,gd2,gdf,block_size);
+Qe = Qw.*Qw1;

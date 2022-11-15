@@ -1,0 +1,12 @@
+function S = SSIM_window(img1,img2,block_size)
+[img_var1,img_me1] = topleft_var1(img1,block_size);
+[img_var2,img_me2] = topleft_var1(img2,block_size);
+img_covar = cov_window(img1,img2,block_size);
+D1 = sqrt(img_var1);
+D2 = sqrt(img_var2);
+C1 = 2.*10^(-16);
+C2 = C1;
+C3 = C2/2;
+S1 = (2.*img_me1.*img_me2 + C1).*(2.*D1.*D2 + C2).*(img_covar+C3);
+S2 = (img_me1.^2 + img_me2.^2 + C1).*(img_var1 + img_var2 + C2).*(D1.*D2 + C3);
+S = S1./S2;
